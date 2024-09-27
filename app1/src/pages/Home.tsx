@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel } from '@ionic/react';
 import axios from 'axios';
+import SplashScreen from './SplashScreen'; // Import the SplashScreen component
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -31,23 +32,25 @@ const Home: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="home-page">
-                <h1>Astronauts Currently in Space</h1>
                 {loading ? (
-                    <p>Loading...</p>
+                    <SplashScreen /> // Show the splash screen while loading
                 ) : (
-                    <IonList>
-                        {astronauts.length > 0 ? (
-                            astronauts.map((name, index) => (
-                                <IonItem key={index}>
-                                    <IonLabel>{name}</IonLabel>
+                    <>
+                        <h1>Astronauts Currently in Space</h1>
+                        <IonList>
+                            {astronauts.length > 0 ? (
+                                astronauts.map((name, index) => (
+                                    <IonItem key={index}>
+                                        <IonLabel>{name}</IonLabel>
+                                    </IonItem>
+                                ))
+                            ) : (
+                                <IonItem>
+                                    <IonLabel>No astronauts currently in space.</IonLabel>
                                 </IonItem>
-                            ))
-                        ) : (
-                            <IonItem>
-                                <IonLabel>No astronauts currently in space.</IonLabel>
-                            </IonItem>
-                        )}
-                    </IonList>
+                            )}
+                        </IonList>
+                    </>
                 )}
             </IonContent>
         </IonPage>
