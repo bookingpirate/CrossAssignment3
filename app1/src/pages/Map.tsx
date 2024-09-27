@@ -56,7 +56,7 @@ const Map: React.FC = () => {
         };
 
         fetchISSPosition();
-        const interval = setInterval(fetchISSPosition, 5000); //5 Sekunden
+        const interval = setInterval(fetchISSPosition, 15000); //15 Sekunden
 
         return () => {
             clearInterval(interval);
@@ -73,7 +73,9 @@ const Map: React.FC = () => {
     const SetViewOnClick = ({ position }: { position: [number, number] }) => {
         const map = useMap();
         useEffect(() => {
-            map.setView(position, map.getZoom());
+            setTimeout(() => {
+                map.setView(position, map.getZoom());
+            }, 100);
         }, [position, map]);
 
         return null;
@@ -91,7 +93,7 @@ const Map: React.FC = () => {
                     <MapContainer
                         center={userPosition ? userPosition : [51.505, -0.09]} // Standardwert
                         zoom={userPosition ? 13 : 2} // Zoomstufe
-                        style={{ height: "100%", width: "100%" }} //
+                        style={{ height: "750px", width: "100%" }} //
                     >
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

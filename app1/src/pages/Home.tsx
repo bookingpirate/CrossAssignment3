@@ -1,8 +1,28 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel } from '@ionic/react';
+import axios from 'axios';
 import './Home.css';
 
 const Home: React.FC = () => {
+    const [astronauts, setAstronauts] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchAstronauts = async () => {
+            try {
+                const response = await axios.get('http://api.open-notify.org/astros.json');
+                const astronautNames = response.data.people.map((person: { name: string }) => person.name);
+                setAstronauts(astronautNames);
+            } catch (error) {
+                console.error("Error fetching astronauts:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAstronauts();
+    }, []);
+
     return (
         <IonPage>
             <IonHeader>
@@ -11,39 +31,25 @@ const Home: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="home-page">
-                <h1>Welcome to the Home Page</h1>
-
-                <p>
-                    This is the first page of our application. It provides an overview of the app's features and
-                    functionalities.
-                </p>
-                    <h2>Key Features</h2>
-                    <p>
-                        Navigation between different tabs like Home, Map, Profile, and About
-                    </p>
-                    <p>
-                        Map feature for location-based services
-                    </p>
-                    <p>
-                        Profile page where you can manage your settings
-                    </p>
-                    <p>
-                        About section with detailed information on the developer and app
-                    </p>
-                    <h2>How to Use the App</h2>
-                    <p>
-                        Use the navigation bar to switch between different sections of the app.
-                    </p>
-                    <p>
-                        Use the 'Map' tab for location-based functionalities.
-                    </p>
-                    <p>
-                        Explore the 'Profile' tab to view or modify your user details.
-                    </p>
-                    <p>
-                        Check out the 'About' tab for more information about the app and the developer.
-                    </p>
-        </IonContent>
+                <h1>Astronauts Currently in Space</h1>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <IonList>
+                        {astronauts.length > 0 ? (
+                            astronauts.map((name, index) => (
+                                <IonItem key={index}>
+                                    <IonLabel>{name}</IonLabel>
+                                </IonItem>
+                            ))
+                        ) : (
+                            <IonItem>
+                                <IonLabel>No astronauts currently in space.</IonLabel>
+                            </IonItem>
+                        )}
+                    </IonList>
+                )}
+            </IonContent>
         </IonPage>
     );
 };

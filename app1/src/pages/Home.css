@@ -9,19 +9,7 @@
     box-sizing: border-box;
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.features, .instructions, .developer-info {
+h2 {
     margin-top: 20px;
-    max-width: 600px;
-    text-align: center;
-}
-
-ul, ol {
-    padding-left: 20px;
-    text-align: left;
+    font-size: 1.5rem;
 }
