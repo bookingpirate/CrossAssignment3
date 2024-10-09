@@ -1,5 +1,5 @@
-ich hab herumprobiert und mir die themen angeschaut und versucht aber wirklich 100% funktioniert hat es nicht bei jedem der 3
-folgendes entspricht eigenen erfarhrungen und google recherchen
+ich hab herumprobiert und mir die themen angeschaut und versucht aber wirklich 100% funktioniert hat es nicht bei jedem der 3;
+folgendes entspricht eigenen erfahrrungen und google recherchen
 
 PWA
 aufsetzen war easy 
